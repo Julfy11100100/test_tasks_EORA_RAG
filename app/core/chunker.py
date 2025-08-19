@@ -1,9 +1,9 @@
 import math
 from typing import List, Dict
-
+from config import settings
 
 class ContentChunker:
-    def __init__(self, chunk_size: int = 512, overlap: int = 50):
+    def __init__(self, chunk_size: int = settings.DEFAULT_CHUNK_SIZE, overlap: int = settings.DEFAULT_CHUNK_OVERLAP):
         self.chunk_size = chunk_size
         self.overlap = overlap
 
