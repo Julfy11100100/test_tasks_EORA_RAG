@@ -77,6 +77,9 @@ async def init_knowledge_base():
             # Парсинг страницы
             document = parser.parse_page(url)
             if document:
+
+                logger.info(f"По {url} получили данные: {document}")
+
                 # Чанкинг
                 chunks = chunker.chunk_document(document)
                 all_chunks.extend(chunks)

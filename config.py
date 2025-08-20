@@ -18,8 +18,8 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     # Настройки поиска
-    MIN_SIMILARITY_THRESHOLD: float = 0.3
-    MAX_SEARCH_RESULTS: int = 10
+    MIN_SIMILARITY_THRESHOLD: float = 0.2
+    MAX_SEARCH_RESULTS: int = 5
     VECTOR_DB_PATH: str = f"{project_root}/scripts/vector_db"
 
     # Настройки чанкера
@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     GIGACHAT_BASE_URL: str = "https://gigachat.devices.sberbank.ru/api/v1"
     GIGACHAT_MODEL: str = "GigaChat"
     GIGACHAT_SCOPE: str = "GIGACHAT_API_PERS"
+    TEMPERATURE: float = 0.2
 
     class Config:
         env_file = f"{project_root}/.env"
