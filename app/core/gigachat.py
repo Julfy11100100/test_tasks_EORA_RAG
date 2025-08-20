@@ -3,11 +3,13 @@ import uuid
 
 import httpx
 
-from app.utils.logging import logger
+from app.core.interface import LlmInterface
+from app.utils.logging import get_logger
 from config import settings
 
+logger = get_logger(__name__)
 
-class GigaChatClient:
+class GigaChatClient(LlmInterface):
     """Клиент для работы с GigaChat API"""
 
     def __init__(self):

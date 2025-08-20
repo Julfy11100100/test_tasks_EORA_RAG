@@ -7,8 +7,10 @@ from fastapi.responses import JSONResponse
 
 from app.api import questions
 from app.containers import Container
-from app.utils.logging import logger
+from app.utils.logging import get_logger
 from config import settings
+
+logger = get_logger(__name__)
 
 
 def init_dependency_injector() -> Container:

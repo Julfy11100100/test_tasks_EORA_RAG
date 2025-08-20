@@ -4,7 +4,9 @@ from typing import Dict, Optional
 import requests
 from bs4 import BeautifulSoup
 
-from app.utils.logging import logger
+from app.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 class HTMLParser:

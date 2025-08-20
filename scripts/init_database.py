@@ -8,8 +8,10 @@ from pathlib import Path
 from app.core.chunker import ContentChunker
 from app.core.embedding import EmbeddingService
 from app.core.parser import HTMLParser
-from app.utils.logging import logger
+from app.utils.logging import get_logger
 from config import settings
+
+logger = get_logger(__name__)
 
 sys.path.append(str(Path(__file__).parent.parent))
 
