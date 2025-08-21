@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8000
+      - PYTHONPATH=/app
+    command: >
+      sh -c "
+        if [ ! -d 'scripts/vector_db' ]; then
+          echo 'Папка scripts/vector_db не найдена, запускаем инициализацию...'
+          python scripts/init_database.py
+        fi
+        uvicorn app.main:app --host 0.0.0.0 --port 8000
+      "
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
