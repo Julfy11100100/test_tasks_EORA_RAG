@@ -1,14 +1,16 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from app.containers import Container
-
-from app.utils.logging import logger
+from fastapi.responses import JSONResponse
 
 from app.api import questions
+from app.containers import Container
+from app.utils.logging import get_logger
 from config import settings
+
+logger = get_logger(__name__)
 
 
 def init_dependency_injector() -> Container:
@@ -26,7 +28,7 @@ async def lifespan(app: FastAPI):
     logger.info("Startup")
     init_dependency_injector()
     yield
-    print("Shutdown")
+    logger.info("Shutdown")
 
 
 # Создание FastAPI приложения
@@ -54,6 +56,16 @@ app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=["*"]
 )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Отловили ошибку: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Произошла внутренняя ошибка. Мы уже работаем над её устранением."}
+    )
+
 
 # Подключение роутов
 app.include_router(questions.router, prefix="/api/v1", tags=["questions"])

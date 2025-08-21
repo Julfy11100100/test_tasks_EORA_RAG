@@ -1,4 +1,5 @@
 import os
+from typing import Literal
 
 from pydantic_settings import BaseSettings
 
@@ -18,19 +19,28 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     # Настройки поиска
-    MIN_SIMILARITY_THRESHOLD: float = 0.3
-    MAX_SEARCH_RESULTS: int = 10
+    MIN_SIMILARITY_THRESHOLD: float = 0.2
+    MAX_SEARCH_RESULTS: int = 5
     VECTOR_DB_PATH: str = f"{project_root}/scripts/vector_db"
 
     # Настройки чанкера
     DEFAULT_CHUNK_SIZE: int = 512
     DEFAULT_CHUNK_OVERLAP: int = 50
 
+    # Определяем каким LLM пользуемся
+    LLM_PROVIDER: Literal["gigachat", "sonar"] = "sonar"
+
     # GigaChat настройки
     GIGACHAT_API_KEY: str = ""
     GIGACHAT_BASE_URL: str = "https://gigachat.devices.sberbank.ru/api/v1"
     GIGACHAT_MODEL: str = "GigaChat"
     GIGACHAT_SCOPE: str = "GIGACHAT_API_PERS"
+    TEMPERATURE: float = 0.2
+
+    # Настройки для Sonar
+    SONAR_BASE_URL: str = ""
+    SONAR_API_KEY: str = ""
+    SONAR_MODEL: str = "sonar"
 
     class Config:
         env_file = f"{project_root}/.env"

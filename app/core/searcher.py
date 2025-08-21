@@ -11,7 +11,7 @@ class SearchService:
 
     def search_and_rank(self, query: str, k: int = 5) -> List[Dict[str, any]]:
         """Ищет и ранжирует релевантные документы"""
-        # Получаем первичные результаты, берём в два раза больше чтобы потом отсечь
+        # Получаем первичные результаты, берём в 2 раза больше чтобы потом отсечь
         raw_results = self.embedding_service.search_similar(query, k * 2)
 
         # Фильтруем по порогу релевантности
@@ -61,7 +61,3 @@ class SearchService:
             return 0.2 * (len(intersection) / len(query_words))
 
         return 0.0
-
-    def has_relevant_information(self, results: List[Dict]) -> bool:
-        """Проверяет, есть ли релевантная информация"""
-        return bool(results) and results[0]['similarity_score'] > 0.4

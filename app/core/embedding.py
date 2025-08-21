@@ -45,6 +45,7 @@ class EmbeddingService:
         # Ищем в векторной базе
         results = self.collection.query(
             query_embeddings=query_embedding,
+            n_results=k,
             include=['documents', 'metadatas', 'distances']
         )
 

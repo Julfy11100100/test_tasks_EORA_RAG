@@ -8,8 +8,10 @@ from pathlib import Path
 from app.core.chunker import ContentChunker
 from app.core.embedding import EmbeddingService
 from app.core.parser import HTMLParser
-from app.utils.logging import logger
+from app.utils.logging import get_logger
 from config import settings
+
+logger = get_logger(__name__)
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -77,6 +79,9 @@ async def init_knowledge_base():
             # Парсинг страницы
             document = parser.parse_page(url)
             if document:
+
+                logger.info(f"По {url} получили данные: {document}")
+
                 # Чанкинг
                 chunks = chunker.chunk_document(document)
                 all_chunks.extend(chunks)
